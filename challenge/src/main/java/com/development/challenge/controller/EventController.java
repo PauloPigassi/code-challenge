@@ -48,8 +48,10 @@ public class EventController {
     @Transactional
     public ResponseEntity<EventModel> save(HttpServletRequest req, HttpServletResponse response, @PathVariable("url") String url) throws IOException {
     	String userToken = "";
+        //Verifies the cookie header
     	String cookie = req.getHeader("cookie");
   		if (cookie == null) {
+            //If cookie header is null, creates an unique token and sets the header,then save the userToken
   			Cookie newCookie = new Cookie("cookie-name",LocalDateTime.now().toString());
   			newCookie.setMaxAge(60*60*24*365); //1 year
   	        response.addCookie(newCookie);
